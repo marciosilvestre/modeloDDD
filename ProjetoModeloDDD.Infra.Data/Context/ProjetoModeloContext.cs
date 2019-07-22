@@ -1,15 +1,17 @@
 ﻿using ProjetoModeloDDD.Domain.Entities;
 using ProjetoModeloDDD.Infra.Data.EntityConfig;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
 
 namespace ProjetoModeloDDD.Infra.Data.Context
 {
     public class ProjetoModeloContext : DbContext
     {
         public ProjetoModeloContext()
-            :base("ProjetoModeloDDD")
+            : base("ProjetoModeloDDD")
         {
 
         }
@@ -35,9 +37,31 @@ namespace ProjetoModeloDDD.Infra.Data.Context
                 .Configure(p => p.HasMaxLength(100));
 
             modelBuilder.Configurations.Add(new ClienteConfiguration());
+
             modelBuilder.Configurations.Add(new ProdutoConfiguration());
         }
 
+        public override int SaveChanges()
+        {
+            
+            
+            foreach(var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("DataCadastro") != null))
+            {
+                if(entry.State == EntityState.Added)
+                {
+                    entry.Property("DataCadastro").CurrentValue = DateTime.Now;
+                }
+
+                if(entry.State == EntityState.Modified)
+                {
+                    entry.Property("DataCadatro").IsModified= false;
+                }
+            }
+
+            
+            return base.SaveChanges();
+
+        }
 
     }
 }

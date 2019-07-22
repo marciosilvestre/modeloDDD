@@ -20,7 +20,7 @@ namespace ProjetoModeloDDD.Infra.Data.EntityConfig
                 .WithMany()
                 .HasForeignKey(p => p.ClienteId);
 
-            
+
         }
     }
 }

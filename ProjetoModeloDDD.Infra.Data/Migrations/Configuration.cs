@@ -14,6 +14,10 @@ namespace ProjetoModeloDDD.Infra.Data.Migrations
 
         protected override void Seed(Context.ProjetoModeloContext context)
         {
+
+            //Popular a base com dados iniciais, caso necessário
+
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
