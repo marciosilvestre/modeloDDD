@@ -66,9 +66,7 @@ namespace ProjetoModeloDDD.MVC.Controllers
         }
 
         // GET: Clientes/Edit/5
-        [HttpPost]
-       
-        public ActionResult Edit(int id)
+           public ActionResult Edit(int id)
         {
             var cliente = _clienteAppService.GetById(id);
             var clienteViewModel = Mapper.Map<Cliente, ClienteViewModel>(cliente);
